@@ -1,3 +1,7 @@
+# HTML BASICS
+_Hello Legends! Before we start off with anything in-depth lets look into some basics of **HTML5**_
+<br>
+
 # CONTENTS
 - [What is HTML?](https://github.com/Ferozkhanroz/HTML/blob/main/HTML%20DOCUMENTATION.md#what-is-html)
 - [What is an HTML ELEMENT?](https://github.com/Ferozkhanroz/HTML/blob/main/HTML%20DOCUMENTATION.md#what-is-an-html-element)
@@ -25,10 +29,6 @@
 - [Http Methods](https://github.com/Ferozkhanroz/HTML/blob/main/HTML%20DOCUMENTATION.md#http-methods--)
 - [Acknowledgements](https://github.com/Ferozkhanroz/HTML/blob/main/HTML%20DOCUMENTATION.md#acknowledgements--)
 
-_Hello Legends! Before we start off with anything in-depth lets look into some basics of **HTML5**_
-<br>
-
-# HTML BASICS
 ## What is HTML?
     
 HTML stands for Hyper Text Markup Language used for creating Web Pages which describes the
