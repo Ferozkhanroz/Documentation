@@ -131,7 +131,7 @@ HTML formatting elements are used to display special types of text.
 - `<strong>` Important text `</strong>` = <strong> Important text </strong>
 - `<i>` Italic text `</i>` = <i>  Italic text </i>
 - `<em>` Emphasized text `</em>`= <em> Emphasized text </em>
-- <`mark>` Marked text `</mark>` = <mark> Marked text </mark>
+- `<mark>` Marked text `</mark>` = <mark> Marked text </mark>
 - `<small>` Smaller text `</small>` = <small> Smaller text </small>
 - `<del>` Deleted text `</del>` = <del> Deleted text </del>
 - `<ins>` Inserted text `</ins>` = <ins> Inserted text </ins>
