@@ -8,7 +8,16 @@ REVOKE - withdraw users access privileges given by using the GRANT command
 `SYNTAX :`
 >GRANT privileges<br> ON object <br>TO user;
 
+_NOTE :_ List of Privileges that can be granted are listed below. 
+- ALL PRIVILEGES
+- SELECT 
+- INSERT
+- DELETE
+- UPDATE
+
 `EXAMPLE :`
->GRANT all privileges
-ON payroll
-TO \`user_name\`@\`localhost\`
+```
+GRANT all privileges 
+ON `table_name`
+TO `user_name`@`localhost` 
+```
