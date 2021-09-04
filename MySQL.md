@@ -6,7 +6,7 @@
 
 >REVOKE - withdraw users access privileges given by using the GRANT command
 
-### `GRANT :`
+#### `GRANT :`
 >**SYNTAX :**<br>
 GRANT privileges<br> ON object <br>TO user;
 
@@ -24,7 +24,7 @@ ON `table_name`
 TO `user_name`@`localhost` 
 ```
 
-### `REVOKE :`
+#### `REVOKE :`
 >**SYNTAX :**<br>
 REVOKE privileges <br> ON object <br>FROM user;
 
@@ -43,7 +43,7 @@ TO `user_name`@`localhost`
 
 >DROP INDEX - The DROP INDEX statement is used to delete an index in a table.
 
-### `CREATE INDEX :`
+#### `CREATE INDEX :`
 >**SYNTAX :**<br>
 CREATE INDEX index_name<br>
 ON table_name (column1, column2, ...);
@@ -55,7 +55,7 @@ _NOTE:_ Updating a table with indexes takes more time than updating a table with
 CREATE INDEX IX_1
 ON department (name);
 ```
-### `DROP INDEX :`
+#### `DROP INDEX :`
 >**SYNTAX :**<br>
 ALTER TABLE table_name <br>
 DROP INDEX index_name;
