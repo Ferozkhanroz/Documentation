@@ -1,5 +1,51 @@
 # MySQL
 
+## **Entity Relationship Diagram (ERD)**
+**Definition :** *It is a technique to document a software system using diagrams and symbols. It is used to represent communication of data.*
+
+*The highest level of abstraction for the data model is called the Entity Relationship Diagram (ERD). It is a graphical representation of data requirements for a database.*
+
+*There are three components in ERD.*
+
+- **Entities:** Number of tables you need for your database. <br>
+- **Attributes:** Information such as property, facts you need to describe each table. <br>
+- **Relationships:** How tables are linked together. These relationships are denoted by crow's foot symbols.<br>
+
+**Entity :**
+Entities are the basic objects of ERDs. These are the tables of your database.
+
+**Relationships :**
+Relationships are the associations between the entities. Verbs often describe relationships between entities. We will use Crow's Foot Symbols to represent the relationships.
+
+**Example :**
+<img src="https://www.cs.uregina.ca/Links/class-info/215/images/relationship.png"/>
+
+**`One to One Relationship (1:1) :`**
+A single entity instance in one entity class is related to a single entity instance in another entity class.
+
+**`For example:`**
+- Each student fills one seat and one seat is assigned to only one student.
+
+**`One to Many Relationship (1:M) :`**
+A single entity instance in one entity class (parent) is related to multiple entity instances in another entity class (child)
+
+**`For example:`**
+- One instructor can teach many courses, but one course can only be taught by one instructor.
+
+**`Many to Many Relationship (M:M) :`**
+Each entity instance in one entity class is related to multiple entity instances in another entity class; and vice versa.
+
+**`For example:`**
+- Each student can take many classes, and each class can be taken by many students.
+
+**Attributes :**
+Attributes are facts or description of entities. They are also often nouns and become the columns of the table. For example, for entity student, the attributes can be first name, last name, email, address and phone numbers.
+- **Primary Key :**
+Primary Key* or identifier is an attribute or a set of attributes that uniquely identifies an instance of the entity. 
+- **Foreign key :**
+A foreign key+ (sometimes called a referencing key) is a key used to link two tables together. Typically you take the primary key field from one table and insert it into the other table where it becomes a foreign key
+
+---
 ## **DDL**
 
 **DEFINITION :** *DDL or Data Definition Language actually consists of the SQL commands that can be used to define the database schema. It simply deals with descriptions of the database schema and is used to create and modify the structure of database objects in the database.*
@@ -881,5 +927,134 @@ WHERE table_type = 'VIEW';`
 Code language: SQL (Structured Query Language) (sql)
 
 Because the  SHOW FULL TABLES`  statement returns both tables and views, you need to add a  `[WHERE](https://www.mysqltutorial.org/mysql-where/)`  clause to get the views only.
+
+---
+## **Functions**
+
+**Definition :** *The CREATE FUNCTION statement is used for creating a stored function and user-defined functions. A stored function is a set of SQL statements that perform some operation and return a single value.*
+
+*Just like Mysql in-built function, it can be called from within a Mysql statement.*
+
+*By default, the stored function is associated with the default database.*
+
+>**SYNTAX :** <br>
+CREATE FUNCTION function_name(func_parameter1, func_parameter2, ..) <br>
+          RETURN datatype [characteristics] <br>
+          func_body
+
+**Parameters used:**
+
+- **function_name:**
+It is the name by which stored function is called. The name should not be same as native(built_in) function. In order to associate routine explicitly with a specific database function name should be given as database_name.func_name.
+
+- **func_parameter:**
+It is the argument whose value is used by the function inside its body. You can’t specify to these parameters IN, OUT, INOUT. The parameter declaration inside parenthesis is provided as func_parameter type. Here, type represents a valid Mysql datatype.
+
+- **datatype:**
+It is datatype of value returned by function.
+characteristics:
+The CREATE FUNCTION statement is accepted only if at least one of the characterisitics { DETERMINISTIC, NO SQL, or READS SQL DATA } is specified in its declaration.
+
+**func_body** is the set of Mysql statements that perform operation. It’s structure is as follows:
+
+>**func_body :** <br>
+BEGIN <br>
+Mysql Statements<br>
+    RETURN expression; <br>
+END
+
+_NOTE :_ The function body must contain one RETURN statement.
+
+**Example :**
+```
+CREATE DEFINER=`root`@`localhost` FUNCTION `income`(gross_salary bigint, gross_deductions bigint) RETURNS bigint
+    READS SQL DATA
+    DETERMINISTIC
+BEGIN
+DECLARE income bigint;
+SET income = 0;
+-- label1: WHILE income <= 3000 DO
+SET income = gross_salary - gross_deductions;
+-- END WHILE label1;
+RETURN income;
+END
+```
+
+To call the above function :
+
+    select employee.income(22000, 2000);
+---
+## **Trigger**
+
+
+**Definition:** *The Triggers subtab opens a workspace that enables you to create new triggers or edit existing triggers. All triggers are organized within a tree structure by section, such as BEFORE INSERT and AFTER INSERT.*
+
+To add a new trigger, click the [+] icon next to the trigger section. To delete a trigger, click the associated [-] icon. These icons become visible by hovering over a trigger or trigger section. Click Apply to commit your changes. The next figure shows an example of the customer_create_date trigger.
+
+>**syntax:** <br>
+CREATE TRIGGER trigger_name <br>
+{BEFORE | AFTER} {INSERT | UPDATE| DELETE }<br>
+ON table_name FOR EACH ROW <br>
+trigger_body;
+
+**Example:**
+```
+CREATE TABLE employees_audit (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    employeeNumber INT NOT NULL,
+    lastname VARCHAR(50) NOT NULL,
+    changedat DATETIME DEFAULT NULL,
+    action VARCHAR(50) DEFAULT NULL
+);
+CREATE TRIGGER before_employee_update 
+    BEFORE UPDATE ON employees
+    FOR EACH ROW 
+ INSERT INTO employees_audit
+ SET action = 'update',
+     employeeNumber = OLD.employeeNumber,
+     lastname = OLD.lastname,
+     changedat = NOW();
+     SHOW TRIGGERS;
+     UPDATE employees 
+SET 
+    lastName = 'Phan'
+WHERE
+    employeeNumber = 1056;
+    SELECT * FROM employees_audit;
+```
+---
+## **Cursor**
+
+**Definition:**  *A cursor allows to iterate a set of rows returned by a query and process them accordingly. We create cursor inside a stored procedure to handle the result set returned by a query. Mysql cursors are read-only and non-scrollable.* <br><br>
+
+
+ >**SYNTAX:**<br>
+ Declare<cursor_name> for select_statement <br>
+  Open <cursor_name> initializes the result set for operation <br>
+  Fetch cursor_name into variable list to retrieve the next row pointed by the cursor and move the cursor to the next row in the result set. <br>
+  Close <cursor_name>to deactivate the cursor and release any memory associated with it.
+
+
+**Example:**
+```
+   delimiter $$
+   create procedure proc_emp()
+   begin
+   declare v_ename varchar(100);
+   declare v_salary int;
+   declare v_finished integer default 0;
+   declare c1 cursor for select ename ,salary from employees;
+   declare continue handler for NOT FOUND set v_finished=1;
+   open c1;
+   get_emp:LOOP
+      fetch c1 into v_ename , v_salary;
+      if v_finished=1 then 
+          leave get_emp;
+      end if;
+      select concat (v_ename,v_salary);
+      END LOOP get_emp;
+      close c1;
+    end $$
+```
 
 ---
