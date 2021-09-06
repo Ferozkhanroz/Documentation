@@ -420,7 +420,7 @@ The AND and OR operators are used to filter records based on more than one condi
 - The OR operator displays a record if any of the conditions separated by OR is TRUE.
 - The NOT operator displays a record if the condition(s) is NOT TRUE.
 
- </BR>
+
     
 #### **AND :**
 
@@ -433,7 +433,6 @@ WHERE condition1 AND condition2 AND condition3 ...;
 
     SELECT * FROM employee_details
     WHERE employee_id='HLXI001' AND city='Coimbatore';
- </BR>
 
 #### **OR :**
 
@@ -446,7 +445,6 @@ WHERE condition1 OR condition2 OR condition3 ...;
 
     SELECT * FROM employee_details
     WHERE city='Coimbatore' OR city='Tirupur';
-</BR>
 
 #### **NOT :**
 
@@ -459,8 +457,6 @@ WHERE NOT condition;
 
     SELECT * FROM employee_details
     WHERE NOT city='Coimbatore';
-</BR>
-
 
 #### **LIKE OPERATOR :**
 
@@ -479,28 +475,23 @@ WHERE columnN LIKE pattern;
 
     SELECT first_name, last_name FROM employee_details
     WHERE employee_id LIKE 'HLXI%';
-</br>
-
 
 #### **BETWEEN OPERATOR :**
 
 **DEFINITION :** *The BETWEEN operator selects values within a given range. The values can be numbers, text, or dates.*
 
-
 The BETWEEN operator is inclusive: begin and end values are included.
-
 
 `SYNTAX  :` 
 > SELECT column_name(s)
 FROM table_name<br>
 WHERE column_name BETWEEN value1 AND value2;
 
-
 `EXAMPLE  :`  
 
     SELECT * FROM payroll
     WHERE net_salary BETWEEN 15000 AND 20000;
-</br>
+
 
 #### **IN OPERATOR :**
 
@@ -515,12 +506,11 @@ The IN operator is a shorthand for multiple OR conditions.
 FROM table_name <BR>
 WHERE column_name IN (value1, value2, ...);
 
-
 `EXAMPLE  :`  
 
     SELECT * FROM employee_details
     WHERE city IN ('coimbatore', 'Tirupur');
-</br>
+
 
 **EXISTS OPERATOR**
 
@@ -543,5 +533,4 @@ WHERE EXISTS
     FROM employee_details
     WHERE EXISTS (SELECT employee_id FROM payroll 
     WHERE employee_details.employee_id =  payroll.employee_id  AND gross_salary < 20000); 
-
 ---
