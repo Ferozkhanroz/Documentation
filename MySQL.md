@@ -561,7 +561,7 @@ JOIN table2<BR>
 ON table1.matching_column = table2.matching_column;
 
 Table:
-<img src="https://media.geeksforgeeks.org/wp-content/cdn-uploads/table1-3.png ">
+<img src="https://media.geeksforgeeks.org/wp-content/cdn-uploads/table1-3.png "/>
 
 **Examples :**
 ```
