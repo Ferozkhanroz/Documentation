@@ -331,7 +331,6 @@ DROP INDEX IX_1;
 ```
 ---
 ## CLAUSES
-</br>
 
 #### **WHERE CLAUSE :**
 
@@ -349,7 +348,6 @@ WHERE condition;**
 SELECT * FROM employee_details</br>
 WHERE employee_id = 'HLXI001';
 ```
-</br>
 
 #### **FROM CLAUSE :**
 
@@ -364,7 +362,7 @@ WHERE condition;
 ```
 SELECT employee_id FROM employee_details;
 ```
-</br>
+
 
 #### **ORDER BY CLAUSE :**
 
@@ -381,7 +379,6 @@ ORDER BY column1, column2, ... ASC|DESC;
     FROM employee_details</br> 
     ORDER BY employee_id asc;
 
-</br>
 
 #### **GROUP BY CLAUSE :**
 
@@ -408,7 +405,7 @@ ORDER BY column_name(s);
 ## CONDITIONS
 
 **AND, OR and NOT Operators**
-</br>
+
 
 **DEFINITION :`** *The WHERE clause can be combined with AND, OR, and NOT operators.*
 
@@ -492,11 +489,9 @@ WHERE column_name BETWEEN value1 AND value2;
     SELECT * FROM payroll
     WHERE net_salary BETWEEN 15000 AND 20000;
 
-
 #### **IN OPERATOR :**
 
 **DEFINITION :** *The IN operator allows you to specify multiple values in a WHERE clause.*
-
 
 The IN operator is a shorthand for multiple OR conditions.
 
