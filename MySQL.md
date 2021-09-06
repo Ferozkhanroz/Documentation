@@ -534,3 +534,148 @@ WHERE EXISTS
     WHERE EXISTS (SELECT employee_id FROM payroll 
     WHERE employee_details.employee_id =  payroll.employee_id  AND gross_salary < 20000); 
 ---
+## Joins
+
+**Definition :** *A SQL Join statement is used to combine data or rows from two or more tables based on a common field between them. Different types of Joins are:*
+
+- INNER JOIN
+- LEFT JOIN
+- RIGHT JOIN
+- FULL JOIN
+
+>**Syntax :** <br>
+**Inner join:** <BR>
+SELECT table1.column1,table1.column2,table2.column1,....<BR>
+FROM table1 <BR>
+INNER JOIN table2<BR>
+ON table1.matching_column = table2.matching_column;<br><br>
+**Left join:** <BR>
+SELECT table1.column1,table1.column2,table2.column1,....<BR>
+FROM table1 <BR>
+LEFT JOIN table2 <BR>
+ON table1.matching_column = table2.matching_column; <br><BR>
+**Right  join:**<BR>
+SELECT table1.column1,table1.column2,table2.column1,....<BR>
+FROM table1 <BR>
+Right JOIN table2<BR>
+ON table1.matching_column = table2.matching_column;<br><br>
+**Full join:**<BR>
+SELECT table1.column1,table1.column2,table2.column1,....<BR>
+FROM table1 <BR>
+JOIN table2<BR>
+ON table1.matching_column = table2.matching_column;
+
+Table:
+https://media.geeksforgeeks.org/wp-content/cdn-uploads/table1-3.png <br><br>
+
+
+**Examples :**
+```
+Inner join:
+SELECT StudentCourse.COURSE_ID, Student.NAME, Student.AGE FROM Student
+INNER JOIN StudentCourse
+ON Student.ROLL_NO = StudentCourse.ROLL_NO;
+
+Left join:
+SELECT StudentCourse.COURSE_ID, Student.NAME, Student.AGE FROM Student
+LEFT JOIN StudentCourse
+ON Student.ROLL_NO = StudentCourse.ROLL_NO;
+
+Right join:
+SELECT StudentCourse.COURSE_ID, Student.NAME, Student.AGE FROM Student
+RIGHT JOIN StudentCourse
+ON Student.ROLL_NO = StudentCourse.ROLL_NO;
+
+Full join:
+SELECT StudentCourse.COURSE_ID, Student.NAME, Student.AGE FROM Student
+FULL JOIN StudentCourse
+ON Student.ROLL_NO = StudentCourse.ROLL_NO;
+
+```
+---
+## Aliases:
+**Definition:** *Aliases are the temporary names given to table or column for the purpose of a particular SQL query. It is used when name of column or table is used other than their original names, but the modified name is only temporary.*
+
+- Aliases are created to make table or column names more readable.
+- The renaming is just a temporary change and table name does not change in the original database.
+- Aliases are useful when table or column names are big or not very readable.
+- These are preferred when there are more than one table involved in a query.
+
+>**Syntax:**<br> 
+**For column alias:**<br>
+SELECT column as alias_name <BR>
+FROM table_name; <BR>
+column: fields in the table <BR>
+alias_name: temporary alias name to be used in replacement of original column name <BR>
+table_name: name of table <br><br>
+**For table alias:**<br>
+SELECT column <BR>
+FROM table_name as alias_name;<BR>
+column: fields in the table <BR>
+table_name: name of table<BR>
+alias_name: temporary alias name to be used in replacement of original tab
+
+**Example:**
+```
+CREATE 
+    ALGORITHM = UNDEFINED 
+    DEFINER = `root`@`localhost` 
+    SQL SECURITY DEFINER
+VIEW `realparsmodel`.`demoviews` AS
+    SELECT 
+        `e`.`firstName` AS `firstName`,
+        `o`.`orderNumber` AS `orderNumber`,
+        `o`.`courseCode` AS `courseCode`
+    FROM
+        (`realparsmodel`.`employees` `e`
+        JOIN `realparsmodel`.`orderdetails` `o`)
+    WHERE
+        (`o`.`priceEach` > 170)
+```
+---
+## Aggregate functions:
+
+**Definition:** *An aggregate function performs a calculation on a set of values, and returns a single value. Except for COUNT( * ), aggregate functions ignore null values. Aggregate functions are often used with the GROUP BY clause of the SELECT statement.*
+
+- Count()
+- Sum()
+- Avg()
+- Min()
+- Max()
+
+>**Synatx:** <br>
+COUNT(*)  
+or  
+COUNT( [ALL|DISTINCT] expression )  <br><br>
+SUM()  
+or  
+SUM( [ALL|DISTINCT] expression )  <br><br>
+AVG()  
+or  
+AVG( [ALL|DISTINCT] expression )  <br><br>
+MAX()  
+or  
+MAX( [ALL|DISTINCT] expression )  <br><br>
+MIN()  
+or  
+MIN( [ALL|DISTINCT] expression )  
+
+**Examples:** 
+```
+SELECT COUNT(*)  
+FROM PRODUCT_MAST;  
+
+SELECT SUM(COST)  
+FROM PRODUCT_MAST  
+WHERE QTY>3;  
+
+SELECT AVG(COST)  
+FROM PRODUCT_MAST;  
+
+SELECT MAX(RATE)  
+FROM PRODUCT_MAST;  
+
+SELECT MIN(RATE)  
+FROM PRODUCT_MAST;  
+```
+---
