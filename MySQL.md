@@ -1,6 +1,6 @@
 # MySQL
 
-## DDL
+## **DDL**
 
 **DEFINITION :** *DDL or Data Definition Language actually consists of the SQL commands that can be used to define the database schema. It simply deals with descriptions of the database schema and is used to create and modify the structure of database objects in the database.*
 
@@ -231,7 +231,7 @@ MySQL DELETE statement is used to remove records from the MySQL table that is no
 DELETE FROM employee WHERE employee_id="HLXI003";
 ```
 ---
-## DQL
+## **DQL**
 
 #### **SELECT :**
 
@@ -262,7 +262,7 @@ SELECT * FROM employee;
 SELECT employee_id,first_name,last_name,gender FROM employee WHERE employee_id="HLXI002";
 ```
 ---
-## DCL
+## **DCL**
 **DEFINITION :** *DCL is short name of Data Control Language which includes commands such as GRANT and mostly concerned with rights, permissions and other controls of the database system.*
 
 `COMMANDS:`<br>
@@ -298,7 +298,7 @@ ON `table_name`
 TO `user_name`@`localhost`
 ```
 ---
-## INDEX
+## **INDEX**
 **DEFINITION :** *Indexes are used to retrieve data from the database more quickly than otherwise. The users cannot see the indexes, they are just used to speed up searches/queries.*
 
 `COMMANDS:`<br>
@@ -330,7 +330,7 @@ ALTER TABLE department
 DROP INDEX IX_1;
 ```
 ---
-## CLAUSES
+## **CLAUSES**
 
 #### **WHERE CLAUSE :**
 
@@ -402,7 +402,7 @@ ORDER BY column_name(s);
 
 ---
 
-## CONDITIONS
+## **CONDITIONS**
 
 **AND, OR and NOT Operators**
 
@@ -529,7 +529,7 @@ WHERE EXISTS
     WHERE EXISTS (SELECT employee_id FROM payroll 
     WHERE employee_details.employee_id =  payroll.employee_id  AND gross_salary < 20000); 
 ---
-## Joins
+## **Joins**
 
 **Definition :** *A SQL Join statement is used to combine data or rows from two or more tables based on a common field between them. Different types of Joins are:*
 
@@ -587,7 +587,7 @@ ON Student.ROLL_NO = StudentCourse.ROLL_NO;
 
 ```
 ---
-## Aliases:
+## **Aliases:**
 **Definition:** *Aliases are the temporary names given to table or column for the purpose of a particular SQL query. It is used when name of column or table is used other than their original names, but the modified name is only temporary.*
 
 - Aliases are created to make table or column names more readable.
@@ -627,7 +627,7 @@ VIEW `realparsmodel`.`demoviews` AS
         (`o`.`priceEach` > 170)
 ```
 ---
-## Aggregate functions:
+## **Aggregate functions:**
 
 **Definition:** *An aggregate function performs a calculation on a set of values, and returns a single value. Except for COUNT( * ), aggregate functions ignore null values. Aggregate functions are often used with the GROUP BY clause of the SELECT statement.*
 
@@ -672,4 +672,214 @@ FROM PRODUCT_MAST;
 SELECT MIN(RATE)  
 FROM PRODUCT_MAST;  
 ```
+---
+## **STORED PROCEDURE BASICS**
+**DEFINITION :**
+*When you use MySQL Workbench or mysql shell to issue the query to MySQL Server, MySQL processes the query and returns the result set.*
+
+If you want to save this query on the database server for execution later, one way to do it is to use a stored [procedure](https://www.mysqltutorial.org/mysql-stored-procedure-tutorial.aspx).
+
+The following  [CREATE PROCEDURE](https://www.mysqltutorial.org/getting-started-with-mysql-stored-procedures.aspx)  statement creates a new stored procedure 
+
+**SYNTAX :**
+>CREATE PROCEDURE procedure_name(parameter_list)<br>
+BEGIN<br>
+   statements;<br>
+END<br>
+
+**EXAMPLE :**
+```
+DELIMITER $$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `Salary_credit`(in employee varchar(100),in payroll_id varchar(100))
+BEGIN
+	drop temporary table if exists  credited_salary;
+	create temporary table if not exists credited_salary
+	select  pr.employee_id ,concat(e.first_name,' ',e.last_name) as name, pr.net_salary from payroll pr join employee_details e on e.employee_id = employee and payroll_id=pr.payroll_id;
+END$$
+DELIMITER ;
+```
+-   First, change the default delimiter to  `$$`.
+-   Second, use (`;`) in the body of the stored procedure and  `$$`  after the  `END`  keyword to end the stored procedure.
+-   Third, change the default delimiter back to a semicolon (;)
+
+#### **EXECUTING A STORED PROCEDURE :**
+
+To execute a stored procedure, you use the  `CALL`  statement:
+\
+**SYNTAX :**
+
+
+>CALL stored_procedure_name(argument_list);
+
+
+In this syntax, you specify the name of the stored procedure after the  `CALL`  keyword. If the stored procedure has parameters, you need to pass arguments inside parentheses following the stored procedure name.
+
+	call the procedure with 
+	`CALL Salary_credit('EMP001','PAYID001');`
+	here we use `IN` parameter
+
+#### **IN PARAMETERS :**
+**DEFINITION :**
+*`IN`  is the default mode. When you define an  `IN`  parameter in a stored procedure, the calling program has to pass an argument to the stored procedure.*
+
+**EXAMPLE**
+```
+DELIMITER $$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `Salary_credit`(in employee varchar(100),in payroll_id varchar(100))
+BEGIN
+	drop temporary table if exists  credited_salary;
+	create temporary table if not exists credited_salary
+	select  pr.employee_id ,concat(e.first_name,' ',e.last_name) as name, pr.net_salary from payroll pr join employee_details e on e.employee_id = employee and payroll_id=pr.payroll_id;
+END$$
+DELIMITER ;
+```		
+#### **OUT  PARAMETERS :**
+**DEFINITION :** *The value of an  `OUT`  parameter can be changed inside the stored procedure and its new value is passed back to the calling program.*
+
+Notice that the stored procedure cannot access the initial value of the  `OUT`  parameter when it starts.
+#### **INOUT  PARAMETERS :**
+**DEFINITION :**
+*An  `INOUT`  parameter is a combination of  `IN`  and  `OUT`  parameters. It means that the calling program may pass the argument, and the stored procedure can modify the  `INOUT`  parameter, and pass the new value back to the calling program.*
+
+#### **Using PARAMETER [ IN | OUT | INOUT ]**
+```
+CREATE DEFINER=`root`@`localhost` PROCEDURE `Salary_credit`(in employee varchar(100),inout payroll_id varchar(100),out name varchar(30))
+BEGIN
+	drop temporary table if exists  credited_salary;
+    select concat(first_name,' ',last_name)  into name from employee_details where employee_id=employee;
+	create temporary table if not exists credited_salary
+	select  pr.employee_id ,concat(e.first_name,' ',e.last_name) as name, pr.net_salary from payroll pr join employee_details e on e.employee_id = employee and payroll_id=pr.payroll_id;
+END
+```
+here we use `IN` and `OUT` and `INOUT`
+**Drop** the procedure using<br>
+**SYNTAX :**
+
+>DROP  PROCEDURE  IF  EXISTS invoke_hr_procedure;
+
+The statement  `SHOW WARNINGS`  shows the warning:
+
+`SHOW WARNINGS;`
+here we call that procedure with trigger that's fired when payroll insertion occur.
+
+**Sample :**
+
+```
+drop trigger salary_notifier;
+DELIMITER //
+CREATE TRIGGER `salary_notifier`
+AFTER INSERT ON payroll
+FOR EACH ROW
+BEGIN
+	call Salary_credit(new.employee_id,new.payroll_id,@name);
+END//
+DELIMITER ;
+```
+#### **MySQL TEMPORARY TABLE**
+**DEFINITION :**
+*In MySQL, a temporary table is a special type of table that allows you to store a temporary result set, which you can reuse several times in a single session.*
+
+A MySQL temporary table has the following specialized features:
+
+-   A temporary table is created by using  `CREATE TEMPORARY TABLE`  statement. Notice that the keyword  `TEMPORARY`  is added between the `CREATE`  and  `TABLE`  keywords.
+-   MySQL removes the temporary table automatically when the session ends or the connection is terminated. Of course, you can use the [`DROP TABLE`](https://www.mysqltutorial.org/mysql-drop-table)  statement to remove a temporary table explicitly when you are no longer use it.
+-   A temporary table is only available and accessible to the client that creates it. Different clients can create temporary tables with the same name without causing errors because only the client that creates the temporary table can see it. However, in the same session, two temporary tables cannot share the same name.
+-   A temporary table can have the same name as a normal table in a database. For example, if you create a temporary table named  `employees`  in the  [sample database](https://www.mysqltutorial.org/mysql-sample-database.aspx "MySQL Sample Database"), the existing  `employees`  table becomes inaccessible. Every query you issue against the  `employees`  table is now referring to the temporary table `employees`. When you drop the  `employees`  temporary table, the permanent  `employees`  table is available and accessible.
+
+Even though a temporary table can have the same name as a permanent table, it is not recommended. Because this may lead to confusion and potentially cause an unexpected data loss.
+#### **MySQL  CREATE TEMPORARY TABLE  STATEMENT**
+**SYNTAX :** 
+>CREATE TEMPORARY TABLE table_name(
+   column_1_definition,
+   column_2_definition,
+   ...,
+   table_constraints
+);
+
+**EXAMPLE:**
+```
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `Salary_credit`(in employee varchar(100),inout payroll_id varchar(100),out name varchar(30))
+BEGIN
+	drop temporary table if exists  credited_salary;
+    select concat(first_name,' ',last_name)  into name from employee_details where employee_id=employee;
+	create temporary table if not exists credited_salary
+	select  pr.employee_id ,concat(e.first_name,' ',e.last_name) as name, pr.net_salary from payroll pr join employee_details e on e.employee_id = employee and payroll_id=pr.payroll_id;
+END
+```
+The syntax of the  `CREATE TEMPORARY TABLE`  staetment is similar to the syntax of the  `CREATE TABLE`  statement except for the  `TEMPORARY`  keyword.
+Here we **create** temporary table called `credited_salary` with some expression .
+
+**DROP TEMPORARY TABLE**
+**SYNTAX :**
+
+>DROP TEMPORARY TABLE IF EXISTS  temporary_table_name;
+
+**EXAMPLE:**
+```
+DROP TEMPORARY TABLE IF EXISTS  credited_salary;
+```
+---
+## **MySQL Views**
+This is to save the query in the database server and assign a name to it. This named query is called a  **database view,**  or simply,  **view**.
+
+By definition, a view is a named query stored in the database catalog.
+
+To create a new view you use the  [CREATE VIEW](https://www.mysqltutorial.org/create-sql-views-mysql.aspx) statement. This statement creates a view
+
+**SYNTAX :**
+
+>CREATE  VIEW  _view_name_  AS  
+SELECT  _column1_,  _column2_, ...  
+FROM  _table_name_  
+WHERE  _condition_;
+
+_NOTE :_  A view always shows up-to-date data! The database engine recreates the view, every time a user queries it.
+
+**EXAMPLE :**
+```
+CREATE DEFINER=`root`@`localhost` PROCEDURE `Salary_credit`(in employee varchar(100),inout payroll_id varchar(100),out name varchar(30))
+BEGIN
+	drop temporary table if exists  credited_salary;
+    select concat(first_name,' ',last_name)  into name from employee_details where employee_id=employee;
+	create temporary table if not exists credited_salary
+	select  pr.employee_id ,concat(e.first_name,' ',e.last_name) as name, pr.net_salary from payroll pr join employee_details e on e.employee_id = employee and payroll_id=pr.payroll_id;
+    create view  salary_view as select*from credited_salary;
+END
+```
+here we come with same example on procedure with create view;
+#### **SQL UPDATING A VIEW**
+
+A view can be updated with the  `CREATE OR REPLACE VIEW`  statement.
+
+**SQL CREATE OR REPLACE VIEW SYNTAX :**
+
+
+>CREATE  OR  REPLACE  VIEW  _view_name_  AS  
+SELECT  _column1_,  _column2_, ...  
+FROM  _table_name_  
+WHERE  _condition_;
+
+**call**  view using `select*from salary_view;`
+#### **SQL Dropping a View**
+
+A view is deleted with the  `DROP VIEW`  statement.
+
+**SQL DROP VIEW SYNTAX :**
+
+>DROP  VIEW  _view_name_;
+
+**Example :**
+ 	
+	 DROP  VIEW salary_view;
+ 
+MySQL treats the views as tables with the type  `'VIEW'`. Therefore, to show all  [views](https://www.mysqltutorial.org/mysql-views-tutorial.aspx)  in the current database, you use the  `[SHOW FULL TABLES](https://www.mysqltutorial.org/mysql-show-tables/)`  statement as follows:
+
+`SHOW FULL TABLES 
+WHERE table_type = 'VIEW';` 
+
+Code language: SQL (Structured Query Language) (sql)
+
+Because the  SHOW FULL TABLES`  statement returns both tables and views, you need to add a  `[WHERE](https://www.mysqltutorial.org/mysql-where/)`  clause to get the views only.
+
 ---
