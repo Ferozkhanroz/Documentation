@@ -1,5 +1,54 @@
 # MySQL
 
+# Table of Contents
+- [Entity Relationship Diagram](https://github.com/ganesh-design/Documentation/blob/main/MySQL%20(1).md#entity-relationship-diagram-erd)
+- [Data Definition Language (DDL)](https://github.com/ganesh-design/Documentation/blob/main/MySQL%20(1).md#data-definition-language-ddl)
+	- [Create Database](https://github.com/ganesh-design/Documentation/blob/main/MySQL%20(1).md#create-database-)
+	- [Drop Database](https://github.com/ganesh-design/Documentation/blob/main/MySQL%20(1).md#drop-database-)
+	- [Create Table](https://github.com/ganesh-design/Documentation/blob/main/MySQL%20(1).md#create-table-)
+	- [Alter](https://github.com/ganesh-design/Documentation/blob/main/MySQL%20(1).md#alter-)
+	- [Truncate](https://github.com/ganesh-design/Documentation/blob/main/MySQL%20(1).md#truncate-)
+- [Data Manipulation Language (DML)](https://github.com/ganesh-design/Documentation/blob/main/MySQL%20(1).md#data-manipulation-language-dml)
+	- [Insert](https://github.com/ganesh-design/Documentation/blob/main/MySQL%20(1).md#insert-)
+	- [Update](https://github.com/ganesh-design/Documentation/blob/main/MySQL%20(1).md#update-)
+	- [Delete](https://github.com/ganesh-design/Documentation/blob/main/MySQL%20(1).md#mysql-delete-statement)
+- [Data Query Language (DQL)](https://github.com/ganesh-design/Documentation/blob/main/MySQL%20(1).md#data-query-language-dql)
+	- [Select](https://github.com/ganesh-design/Documentation/blob/main/MySQL%20(1).md#select-)
+- [Data Control Language (DCL)](https://github.com/ganesh-design/Documentation/blob/main/MySQL%20(1).md#data-control-language-dcl)
+	- [Grant](https://github.com/ganesh-design/Documentation/blob/main/MySQL%20(1).md#grant-)
+	- [Revoke](https://github.com/ganesh-design/Documentation/blob/main/MySQL%20(1).md#revoke-)
+- [Index](https://github.com/ganesh-design/Documentation/blob/main/MySQL%20(1).md#index)
+	- [Create Index](https://github.com/ganesh-design/Documentation/blob/main/MySQL%20(1).md#create-index-)
+	-  [Drop Index](https://github.com/ganesh-design/Documentation/blob/main/MySQL%20(1).md#drop-index-)
+- [Clauses](https://github.com/ganesh-design/Documentation/blob/main/MySQL%20(1).md#clauses)
+	- [Where Clause](https://github.com/ganesh-design/Documentation/blob/main/MySQL%20(1).md#where-clause-)
+	- [From Clause](https://github.com/ganesh-design/Documentation/blob/main/MySQL%20(1).md#from-clause-)
+	- [Order By Clause](https://github.com/ganesh-design/Documentation/blob/main/MySQL%20(1).md#order-by-clause-)
+	- [Group By Clause](https://github.com/ganesh-design/Documentation/blob/main/MySQL%20(1).md#group-by-clause-)
+- [Conditions](https://github.com/ganesh-design/Documentation/blob/main/MySQL%20(1).md#conditions)
+	- [And Operator](3eb46242aad791aefa762d89a01f631aa5c09f1c73c3bae55df33bcaaa769c33caeea5adbc48)
+	- [Or Operator](https://github.com/ganesh-design/Documentation/blob/main/MySQL%20(1).md#or-)
+	- [Not Operator](3eb46242aad791aefa762d89a01f631aa5c09f1c73c3bae55df33bcaaa769c33caeea5adbc48)
+	- [Like Operator](https://github.com/ganesh-design/Documentation/blob/main/MySQL%20(1).md#like-operator-)
+	- [Between Operator](https://github.com/ganesh-design/Documentation/blob/main/MySQL%20(1).md#between-operator-)
+	- [In Operator](https://github.com/ganesh-design/Documentation/blob/main/MySQL%20(1).md#in-operator-)
+- [Joins](https://github.com/ganesh-design/Documentation/blob/main/MySQL%20(1).md#joins)
+- [Aliases](https://github.com/ganesh-design/Documentation/blob/main/MySQL%20(1).md#aliases)
+- [Aggregate functions](https://github.com/ganesh-design/Documentation/blob/main/MySQL%20(1).md#aggregate-functions)
+- [Stored Procedure Basics](https://github.com/ganesh-design/Documentation/blob/main/MySQL%20(1).md#stored-procedure-basics)
+	- [Executing A Stored Procedure](https://github.com/ganesh-design/Documentation/blob/main/MySQL%20(1).md#executing-a-stored-procedure-)
+        - [In Parameters](https://github.com/ganesh-design/Documentation/blob/main/MySQL%20(1).md#in-parameters-)
+        - [Out Parameters](https://github.com/ganesh-design/Documentation/blob/main/MySQL%20(1).md#out--parameters-)
+        - [InOut Parameters](https://github.com/ganesh-design/Documentation/blob/main/MySQL%20(1).md#inout--parameters-)
+- [Temporary Table](https://github.com/ganesh-design/Documentation/blob/main/MySQL%20(1).md#mysql-temporary-table)
+	- [Temporary Table](https://github.com/ganesh-design/Documentation/blob/main/MySQL%20(1).md#mysql-temporary-table)
+	- [Create Temporary Table](https://github.com/ganesh-design/Documentation/blob/main/MySQL%20(1).md#mysql--create-temporary-table--statement)
+- [Views](https://github.com/ganesh-design/Documentation/blob/main/MySQL%20(1).md#mysql-views)
+- [Functions](https://github.com/ganesh-design/Documentation/blob/main/MySQL%20(1).md#functions)
+- [Trigger](https://github.com/ganesh-design/Documentation/blob/main/MySQL%20(1).md#trigger)
+- [Cursor](https://github.com/ganesh-design/Documentation/blob/main/MySQL%20(1).md#cursor)
+
+
 ## **Entity Relationship Diagram (ERD)**
 **Definition :** *It is a technique to document a software system using diagrams and symbols. It is used to represent communication of data.*
 
@@ -46,7 +95,7 @@ Primary Key* or identifier is an attribute or a set of attributes that uniquely 
 A foreign key+ (sometimes called a referencing key) is a key used to link two tables together. Typically you take the primary key field from one table and insert it into the other table where it becomes a foreign key
 
 ---
-## **DDL**
+## **Data Definition Language (DDL)**
 
 **DEFINITION :** *DDL or Data Definition Language actually consists of the SQL commands that can be used to define the database schema. It simply deals with descriptions of the database schema and is used to create and modify the structure of database objects in the database.*
 
@@ -200,7 +249,7 @@ Now, we are able to truncate tables. After execution,  **re-enable foreign key**
  SET FOREIGN_KEY_CHECKS=1;
 ```
 ---
-## DML
+## Data Manipulation Language (DML)
 
 **DEFINITION :** *DML(Data Manipulation Language):
  The SQL commands that deals with the manipulation of data present in the database belong to DML or Data Manipulation Language and this includes most of the SQL statements.*
@@ -277,7 +326,7 @@ MySQL DELETE statement is used to remove records from the MySQL table that is no
 DELETE FROM employee WHERE employee_id="HLXI003";
 ```
 ---
-## **DQL**
+## **Data Query Language (DQL)**
 
 #### **SELECT :**
 
@@ -308,7 +357,7 @@ SELECT * FROM employee;
 SELECT employee_id,first_name,last_name,gender FROM employee WHERE employee_id="HLXI002";
 ```
 ---
-## **DCL**
+## **Data Control Language (DCL)**
 **DEFINITION :** *DCL is short name of Data Control Language which includes commands such as GRANT and mostly concerned with rights, permissions and other controls of the database system.*
 
 `COMMANDS:`<br>
